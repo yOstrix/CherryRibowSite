@@ -44,7 +44,7 @@ const Contact = () => {
                 </a>
 
                 <a 
-                  href="https://instagram.com" 
+                  href="https://instagram.com/cherry_ribow_sabonetes" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center p-4 md:p-6 rounded-2xl hover:bg-pink-50 transition-all border border-transparent hover:border-pink-200 group shadow-sm hover:shadow-md"
@@ -73,7 +73,7 @@ const Contact = () => {
                   <div className="w-10 h-10 bg-cherry-pink/30 rounded-full flex items-center justify-center mr-4 group-hover:bg-cherry-pink transition-colors">
                     <Phone className="text-cherry-dark" size={20} />
                   </div>
-                  <span className="text-sm md:text-base">(00) 00000-0000</span>
+                  <span className="text-sm md:text-base">(45) 9126-2823</span>
                 </div>
                 <div className="flex items-center text-gray-600 group">
                   <div className="w-10 h-10 bg-cherry-pink/30 rounded-full flex items-center justify-center mr-4 group-hover:bg-cherry-pink transition-colors">

@@ -9,10 +9,10 @@ const Footer = () => {
           Sabonetes artesanais feitos com carinho, unindo a beleza da cerejeira e a delicadeza dos laços.
         </p>
         <div className="flex justify-center space-x-6 mb-8">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-cherry-dark hover:text-blossom transition-colors">
+          <a href="https://instagram.com/cherry_ribow_sabonetes" target="_blank" rel="noopener noreferrer" className="text-cherry-dark hover:text-blossom transition-colors">
             <Instagram size={24} />
           </a>
-          <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" className="text-cherry-dark hover:text-blossom transition-colors">
+          <a href="https://wa.me/+554591262823" target="_blank" rel="noopener noreferrer" className="text-cherry-dark hover:text-blossom transition-colors">
             <MessageCircle size={24} />
           </a>
         </div>
