@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {
   motion,
   useMotionTemplate,
@@ -23,6 +23,17 @@ const Tilt = ({
   transition = { stiffness: 300, damping: 25, mass: 0.5 },
 }: TiltProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detecta se é mobile para desativar o efeito
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || ('ontouchstart' in window));
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -33,7 +44,7 @@ const Tilt = ({
   const transform = useMotionTemplate`perspective(${perspective}px) rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (!ref.current || isMobile) return;
 
     const rect = ref.current.getBoundingClientRect();
     const width = rect.width;
@@ -58,7 +69,7 @@ const Tilt = ({
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ transform }}
+      style={{ transform: isMobile ? 'none' : transform }}
       className={`relative ${className}`}
     >
       {children}

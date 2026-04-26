@@ -53,7 +53,8 @@ float cnoise(vec2 P) {
   vec2 g10 = vec2(gx.y, gy.y);
   vec2 g01 = vec2(gx.z, gy.z);
   vec2 g11 = vec2(gx.w, gy.w);
-  vec4 norm = taylorInvSqrt(vec4(dot(g00,g00), dot(g01,g01), dot(n10,n10), dot(g11,g11)));
+  // CORREÇÃO: Usando g10 em vez de n10 antes de n10 ser definido
+  vec4 norm = taylorInvSqrt(vec4(dot(g00,g00), dot(g01,g01), dot(g10,g10), dot(g11,g11)));
   g00 *= norm.x; g01 *= norm.y; g10 *= norm.z; g11 *= norm.w;
   float n00 = dot(g00, vec2(fx.x, fy.x));
   float n10 = dot(g10, vec2(fx.y, fy.y));
@@ -103,8 +104,9 @@ const ditherFragmentShader = `
 precision highp float;
 uniform float colorNum;
 uniform float pixelSize;
-uniform vec2 resolution;
-uniform sampler2D inputBuffer;
+
+// CORREÇÃO: Removidas as declarações redundantes de resolution e inputBuffer
+// que o EffectComposer já injeta no shader final.
 
 const float bayerMatrix8x8[64] = float[64](
   0.0/64.0, 48.0/64.0, 12.0/64.0, 60.0/64.0,  3.0/64.0, 51.0/64.0, 15.0/64.0, 63.0/64.0,
@@ -146,18 +148,6 @@ class RetroEffectImpl extends Effect {
     ]);
     super('RetroEffect', ditherFragmentShader, { uniforms });
     this.uniforms = uniforms;
-  }
-  set colorNum(v) {
-    this.uniforms.get('colorNum').value = v;
-  }
-  get colorNum() {
-    return this.uniforms.get('colorNum').value;
-  }
-  set pixelSize(v) {
-    this.uniforms.get('pixelSize').value = v;
-  }
-  get pixelSize() {
-    return this.uniforms.get('pixelSize').value;
   }
 }
 
@@ -207,11 +197,12 @@ function DitheredWaves({
   }, [size, gl]);
 
   const prevColor = useRef([...waveColor]);
-  useFrame(({ clock }) => {
+  useFrame((state) => {
     const u = waveUniformsRef.current;
 
     if (!disableAnimation) {
-      u.time.value = clock.getElapsedTime();
+      // CORREÇÃO: Usando elapsedTime do estado do frame para evitar Clock obsoleto
+      u.time.value = state.clock.getElapsedTime();
     }
 
     if (u.waveSpeed.value !== waveSpeed) u.waveSpeed.value = waveSpeed;
@@ -278,23 +269,25 @@ export default function Dither({
   mouseRadius = 1
 }) {
   return (
-    <Canvas
-      className="dither-container"
-      camera={{ position: [0, 0, 6] }}
-      dpr={1}
-      gl={{ antialias: true, preserveDrawingBuffer: true }}
-    >
-      <DitheredWaves
-        waveSpeed={waveSpeed}
-        waveFrequency={waveFrequency}
-        waveAmplitude={waveAmplitude}
-        waveColor={waveColor}
-        colorNum={colorNum}
-        pixelSize={pixelSize}
-        disableAnimation={disableAnimation}
-        enableMouseInteraction={enableMouseInteraction}
-        mouseRadius={mouseRadius}
-      />
-    </Canvas>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <Canvas
+        className="dither-container"
+        camera={{ position: [0, 0, 6] }}
+        dpr={1}
+        gl={{ antialias: true, preserveDrawingBuffer: true }}
+      >
+        <DitheredWaves
+          waveSpeed={waveSpeed}
+          waveFrequency={waveFrequency}
+          waveAmplitude={waveAmplitude}
+          waveColor={waveColor}
+          colorNum={colorNum}
+          pixelSize={pixelSize}
+          disableAnimation={disableAnimation}
+          enableMouseInteraction={enableMouseInteraction}
+          mouseRadius={mouseRadius}
+        />
+      </Canvas>
+    </div>
   );
 }

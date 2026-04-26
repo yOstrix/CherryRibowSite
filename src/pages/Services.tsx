@@ -69,7 +69,7 @@ const Services = () => {
               Cada etapa do nosso processo, desde a escolha da glicerina até a embalagem final com o laço perfeito, é feita com rigoroso controle de qualidade para garantir a melhor experiência para você.
             </p>
             <a 
-              href="https://wa.me/5500000000000"
+              href="https://wa.me/+554591262823"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-white text-cherry-dark px-8 md:px-12 py-4 rounded-full font-bold hover:bg-cherry-pink hover:text-white transition-all shadow-xl"
