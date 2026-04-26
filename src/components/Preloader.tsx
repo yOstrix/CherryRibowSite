@@ -64,8 +64,8 @@ const Preloader = () => {
           </motion.div>
           
           <motion.span
-            initial={{ opacity: 0, trackingSpacing: "0.1em" }}
-            animate={{ opacity: 1, trackingSpacing: "0.4em" }}
+            initial={{ opacity: 0, letterSpacing: "0.1em" }}
+            animate={{ opacity: 1, letterSpacing: "0.4em" }}
             transition={{ delay: 1, duration: 1 }}
             className="mt-6 text-cherry-dark font-serif italic uppercase text-lg md:text-xl tracking-[0.4em]"
           >
