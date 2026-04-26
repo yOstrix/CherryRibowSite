@@ -29,7 +29,7 @@ const Contact = () => {
               
               <div className="space-y-6">
                 <a 
-                  href="https://wa.me/5500000000000" 
+                  href="https://wa.me/+554591262823" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center p-4 md:p-6 rounded-2xl hover:bg-green-50 transition-all border border-transparent hover:border-green-200 group shadow-sm hover:shadow-md"
